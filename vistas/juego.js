@@ -55,6 +55,71 @@ export const juego = {
 						<div class="fila d-flex justify-content-center">
 						</div>
 					</div>
+					<div
+						class="col-4 d-flex flex-column justify-content-start align-items-center p-5"
+					>
+						<div id="piezaSiguiente">
+							<h4>Pieza siguiente:</h4>
+							<div class="piezaSiguiente m-2">
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-dark border-secondary">x</div>
+								</div>
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-dark border-secondary">x</div>
+								</div>
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+								</div>
+							</div>
+							<div class="piezaSiguiente m-2">
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-dark border-secondary">x</div>
+								</div>
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-dark border-secondary">x</div>
+								</div>
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+								</div>
+							</div>
+							<div class="piezaSiguiente m-2">
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-dark border-secondary">x</div>
+								</div>
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-dark border-secondary">x</div>
+								</div>
+								<div class="fila d-flex justify-content-center">
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+									<div class="celda bg-primary bg-gradient border-dark">x</div>
+								</div>
+							</div>
+						</div>
+						<hr />
+						<div id="piezaGuardada">
+							<h4>Pieza guardada:</h4>
+							<div class="piezaGuardada">
+								<div class="piezaSiguiente m-2">
+									<div class="fila d-flex justify-content-center">
+										<div class="celda bg-warning bg-gradient border-dark">x</div>
+										<div class="celda bg-warning border-secondary">x</div>
+									</div>
+									<div class="fila d-flex justify-content-center">
+										<div class="celda bg-warning bg-gradient border-dark">x</div>
+										<div class="celda bg-warning border-secondary">x</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
 		</div>
 		`,
