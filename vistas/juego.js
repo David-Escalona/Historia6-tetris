@@ -1,4 +1,5 @@
 import { panel } from "../piezas/panel.js";
+import { finalizarPartida } from "./guardarPartida.js";
 
 export const juego = {
     template: `
@@ -144,6 +145,8 @@ export const juego = {
 
             // Llamar a la función para asegurarse de que la puntuación se muestra correctamente al cargar el juego
             actualizarPuntuacion();
+			finalizarPartida();
         }
+		
 }
 
