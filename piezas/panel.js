@@ -146,11 +146,18 @@ export const panel = { // Exporto un objeto constante llamado panel
     },
 
     bajar: () => { // Esto es una funcion que se encarga de bajar las piezas
-        panel.borrarPieza(); // LLamo a esta funcion
-        panel.nuevaPieza.y++; // LLamo a esta funcion para desplazar la pieza 1 posicion abajo
-        panel.insertarPieza(); // LLamo a esta funcion
-        panel.pintaPanel(); // LLamo a esta funcion
-    },
+      panel.borrarPieza(); // LLamo a esta funcion
+      panel.nuevaPieza.y++; // Incremento la posición vertical de la pieza
+  
+      // Verifico si la nueva posición de la pieza excede la fila 23
+      if (panel.nuevaPieza.y > 23) {
+          finalizarPartida(); // Llamo a la función para finalizar la partida
+      } else {
+          panel.insertarPieza(); // Inserto la pieza en su nueva posición
+          panel.pintaPanel(); // Vuelvo a pintar el panel
+      }
+  },
+  
 
     girar: () => { // Esto es una funcion que se encarga de girar piezas
         panel.nuevaPieza.girar(); // LLamo a esta funcion para girar la pieza

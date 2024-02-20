@@ -1,5 +1,4 @@
 import { panel } from "../piezas/panel.js";
-import { finalizarPartida } from "./guardarPartida.js";
 
 export const juego = {
     template: `
@@ -116,11 +115,17 @@ export const juego = {
                                         <div class="celda bg-warning bg-gradient border-dark">x</div>
                                         <div class="celda bg-warning border-secondary">x</div>
                                     </div>
+                                    <button id="terminarPartida" class="btn btn-info mt-3">Terminar Partida</button>
+                                    <div id="nombreJugadorForm" class="d-none">
+                                        <input type="text" id="nombreJugador" placeholder="Ingresa tu nombre">
+                                        <button id="enviarNombre" class="btn btn-primary">Enviar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
         </div>
         `,
 
@@ -145,7 +150,34 @@ export const juego = {
 
             // Llamar a la función para asegurarse de que la puntuación se muestra correctamente al cargar el juego
             actualizarPuntuacion();
-			finalizarPartida();
+			
+            const botonTerminarPartida = document.getElementById("terminarPartida");
+            const nombreJugadorForm = document.getElementById("nombreJugadorForm");
+            const nombreJugadorInput = document.getElementById("nombreJugador");
+            const enviarNombreButton = document.getElementById("enviarNombre");
+            
+            botonTerminarPartida.addEventListener("click", () => {
+                // Mostrar el cuadro de diálogo de confirmación
+                const confirmacion = confirm("¿Deseas guardar la partida?");
+                if (confirmacion) {
+                    // Si el jugador elige "Sí", mostrar el formulario para ingresar el nombre
+                    nombreJugadorForm.classList.remove("d-none");
+                } else {
+                    // Si el jugador elige "No", redirigir al menú principal
+                    window.location.href = "menu_principal.html"; // Ajusta la URL según la ruta de tu página de menú principal
+                }
+            });
+            
+            enviarNombreButton.addEventListener("click", () => {
+                const nombreJugador = nombreJugadorInput.value.trim();
+                if (nombreJugador !== "") {
+                    // Aquí puedes enviar el nombre del jugador y los datos de la partida a la página de ranking
+                    // Luego, redirigir al jugador a la página de ranking
+                    window.location.href = "ranking.html"; // Ajusta la URL según la ruta de tu página de ranking
+                } else {
+                    alert("Por favor, ingresa tu nombre antes de enviar.");
+                }
+            });
         }
 		
 }
