@@ -354,12 +354,29 @@ const panel = {
   bajar: () => {
     panel.borrarPieza();
     panel.nuevaPieza.y++;
-    if (panel.nuevaPieza.y > 23) {
-      finalizarPartida();
+    if (!panel.esPiezaValida()) {
+      panel.nuevaPieza.y--;
+      panel.insertarPieza();
+      panel.crearNuevaPieza();
     } else {
       panel.insertarPieza();
       panel.pintaPanel();
     }
+  },
+  esPiezaValida: () => {
+    for (let i = 0; i < panel.nuevaPieza.altura; i++) {
+      for (let x = 0; x < panel.nuevaPieza.longitud; x++) {
+        const elemento = panel.nuevaPieza.matriz[i][x];
+        if (elemento) {
+          const fila = i + panel.nuevaPieza.y;
+          const columna = x + panel.nuevaPieza.x;
+          if (fila < 0 || fila >= panel.matriz.length || columna < 0 || columna >= panel.matriz[0].length || panel.matriz[fila][columna]) {
+            return false;
+          }
+        }
+      }
+    }
+    return true;
   },
   girar: () => {
     panel.nuevaPieza.girar();
@@ -500,29 +517,25 @@ const juego = {
     panel.controlTeclas();
     panel.iniciarMovimiento();
     const puntuacionSpan = document.getElementById("puntuacion");
+    let puntuacionActual = 0;
     function actualizarPuntuacion() {
-      const puntuacionActual = obtenerPuntuacion();
       puntuacionSpan.textContent = puntuacionActual;
     }
-    actualizarPuntuacion();
     const botonTerminarPartida = document.getElementById("terminarPartida");
-    const nombreJugadorForm = document.getElementById("nombreJugadorForm");
-    const nombreJugadorInput = document.getElementById("nombreJugador");
-    const enviarNombreButton = document.getElementById("enviarNombre");
     botonTerminarPartida.addEventListener("click", () => {
-      const confirmacion = confirm("¿Deseas guardar la partida?");
+      const confirmacion = confirm("¿Deseas terminar la partida y reiniciar?");
       if (confirmacion) {
-        nombreJugadorForm.classList.remove("d-none");
-      } else {
-        window.location.href = "menu_principal.html";
+        reiniciarPartida();
       }
     });
-    enviarNombreButton.addEventListener("click", () => {
-      const nombreJugador = nombreJugadorInput.value.trim();
-      if (nombreJugador !== "") {
-        window.location.href = "ranking.html";
-      } else {
-        alert("Por favor, ingresa tu nombre antes de enviar.");
+    function reiniciarPartida() {
+      alert("Partida reiniciada");
+      window.location.reload();
+    }
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+        puntuacionActual += 10;
+        actualizarPuntuacion();
       }
     });
   }
