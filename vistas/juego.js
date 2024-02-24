@@ -130,55 +130,41 @@ export const juego = {
         `,
 
         script: () => {
-
-            panel.crearNuevaPieza(); // LLamo a esta funcion
-            panel.insertarPieza(); // LLamo a esta funcion
-            panel.pintaPanel(); // LLamo a esta funcion
-            panel.controlTeclas(); // LLamo a esta funcion
-            panel.iniciarMovimiento(); // LLamo a esta funcion
-
-            const puntuacionSpan = document.getElementById("puntuacion"); // Obtener el elemento donde mostrar la puntuación
-
-            
-            function actualizarPuntuacion(){ // Función para actualizar la puntuación en la interfaz
-                // Obtener la puntuación actual (podrías obtenerla de donde la estés almacenando)
-                const puntuacionActual = obtenerPuntuacion(); // Asumiendo que tienes una función para obtener la puntuación definida en otro archivo
-
-                // Actualizar el contenido del elemento en la interfaz
+            panel.crearNuevaPieza();
+            panel.insertarPieza();
+            panel.pintaPanel();
+            panel.controlTeclas();
+            panel.iniciarMovimiento();
+    
+            const puntuacionSpan = document.getElementById("puntuacion");
+            let puntuacionActual = 0;
+    
+            function actualizarPuntuacion() {
                 puntuacionSpan.textContent = puntuacionActual;
             }
-
-            // Llamar a la función para asegurarse de que la puntuación se muestra correctamente al cargar el juego
-            actualizarPuntuacion();
-			
+    
             const botonTerminarPartida = document.getElementById("terminarPartida");
-            const nombreJugadorForm = document.getElementById("nombreJugadorForm");
-            const nombreJugadorInput = document.getElementById("nombreJugador");
-            const enviarNombreButton = document.getElementById("enviarNombre");
-            
+    
             botonTerminarPartida.addEventListener("click", () => {
-                // Mostrar el cuadro de diálogo de confirmación
-                const confirmacion = confirm("¿Deseas guardar la partida?");
+                const confirmacion = confirm("¿Deseas terminar la partida y reiniciar?");
                 if (confirmacion) {
-                    // Si el jugador elige "Sí", mostrar el formulario para ingresar el nombre
-                    nombreJugadorForm.classList.remove("d-none");
-                } else {
-                    // Si el jugador elige "No", redirigir al menú principal
-                    window.location.href = "menu_principal.html"; // Ajusta la URL según la ruta de tu página de menú principal
+                    reiniciarPartida();
                 }
             });
-            
-            enviarNombreButton.addEventListener("click", () => {
-                const nombreJugador = nombreJugadorInput.value.trim();
-                if (nombreJugador !== "") {
-                    // Aquí puedes enviar el nombre del jugador y los datos de la partida a la página de ranking
-                    // Luego, redirigir al jugador a la página de ranking
-                    window.location.href = "ranking.html"; // Ajusta la URL según la ruta de tu página de ranking
-                } else {
-                    alert("Por favor, ingresa tu nombre antes de enviar.");
+    
+            function reiniciarPartida() {
+                alert("Partida reiniciada");
+                window.location.reload();
+            }
+    
+            // Event listener para detectar movimientos laterales de la ficha
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+                    // Incrementar la puntuación en 10 cada vez que se detecte un movimiento lateral
+                    puntuacionActual += 10;
+                    actualizarPuntuacion();
                 }
             });
         }
-		
-}
+};
 

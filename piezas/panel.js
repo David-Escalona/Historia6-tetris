@@ -145,17 +145,37 @@ export const panel = { // Exporto un objeto constante llamado panel
         panel.pintaPanel(); // LLamo a esta funcion
     },
 
-    bajar: () => { // Esto es una funcion que se encarga de bajar las piezas
-      panel.borrarPieza(); // LLamo a esta funcion
-      panel.nuevaPieza.y++; // Incremento la posición vertical de la pieza
-  
-      // Verifico si la nueva posición de la pieza excede la fila 23
-      if (panel.nuevaPieza.y > 23) {
-          finalizarPartida(); // Llamo a la función para finalizar la partida
+    bajar: () => {
+      panel.borrarPieza();
+      panel.nuevaPieza.y++;
+
+      if (!panel.esPiezaValida()) {
+          // Si la nueva posición de la pieza no es válida, revertir el movimiento y crear una nueva pieza
+          panel.nuevaPieza.y--;
+          panel.insertarPieza();
+          panel.crearNuevaPieza();
       } else {
-          panel.insertarPieza(); // Inserto la pieza en su nueva posición
-          panel.pintaPanel(); // Vuelvo a pintar el panel
+          panel.insertarPieza();
+          panel.pintaPanel();
       }
+  },
+
+  esPiezaValida: () => {
+      // Verificar si la pieza está dentro de los límites del panel
+      for (let i = 0; i < panel.nuevaPieza.altura; i++) {
+          for (let x = 0; x < panel.nuevaPieza.longitud; x++) {
+              const elemento = panel.nuevaPieza.matriz[i][x];
+              if (elemento) {
+                  const fila = i + panel.nuevaPieza.y;
+                  const columna = x + panel.nuevaPieza.x;
+                  // Verificar si la posición está fuera del panel o si colisiona con otra pieza
+                  if (fila < 0 || fila >= panel.matriz.length || columna < 0 || columna >= panel.matriz[0].length || panel.matriz[fila][columna]) {
+                      return false;
+                  }
+              }
+          }
+      }
+      return true;
   },
   
 
